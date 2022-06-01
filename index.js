@@ -13,9 +13,8 @@ config();
 router(app);
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, (err) =>
-  console.log(`Listening on Port ${port}`)
-);
+
+const server = app.listen(port, () => console.log(`Listening on Port ${port}`));
 
 connectToMongoDB();
 

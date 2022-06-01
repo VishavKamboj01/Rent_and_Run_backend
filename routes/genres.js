@@ -5,6 +5,7 @@ import admin from "../middleware/admin.js";
 //AsyncMiddleware is a function that takes the route call back function and returns
 // another function by the the callback function in try catch block.
 import { asyncMiddleware } from "../middleware/async.js";
+import mongoose from "mongoose";
 const router = express.Router();
 
 //Get Requests
@@ -43,6 +44,9 @@ router.post("/", auth, async (req, res) => {
 //Put Requests
 
 router.put("/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id))
+    return res.status(400).send("Invalid Object ID.");
+
   const genre = await Genre.findById(req.params.id);
 
   if (!genre)
